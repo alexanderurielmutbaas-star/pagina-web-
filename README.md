@@ -1,4 +1,4 @@
- giro 
+Banca Digital Mexicana
  Banca Digital / Fintech
  Aplicación web enfocada en la gestión de cuentas personales, permitiendo a los usuarios iniciar sesión, consultar su saldo disponible, revisar su historial de transacciones y realizar transferencias entre cuentas.
 

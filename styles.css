@@ -7,9 +7,9 @@
   --line: #e8edf1;
   --surface: #ffffff;
   --canvas: #f5f7f9;
-  --teal: #157d72;
-  --teal-bright: #39c9a5;
-  --green: #19866f;
+  --blue: #1d5ca8;
+  --blue-bright: #82aef0;
+  --positive: #2f67ae;
   --red: #c76161;
   font-family: "DM Sans", "Segoe UI", sans-serif;
   font-synthesis: none;
@@ -48,7 +48,7 @@ a {
 button:focus-visible,
 a:focus-visible,
 input:focus-visible {
-  outline: 3px solid #65b9ae;
+  outline: 3px solid #78a5e6;
   outline-offset: 3px;
 }
 
@@ -80,7 +80,7 @@ input:focus-visible {
   justify-items: center;
   padding: 32px 18px;
   background:
-    radial-gradient(ellipse at 12% 12%, #dcece8 0, transparent 33%),
+    radial-gradient(ellipse at 12% 12%, #e2ebf8 0, transparent 33%),
     radial-gradient(ellipse at 92% 90%, #e5ebf1 0, transparent 35%),
     var(--canvas);
 }
@@ -104,7 +104,7 @@ input:focus-visible {
   place-items: center;
   border-radius: 10px;
   background: var(--navy);
-  color: var(--teal-bright);
+  color: var(--blue-bright);
   font-family: "DM Sans", sans-serif;
   font-size: 9px;
   letter-spacing: 0;
@@ -196,7 +196,7 @@ input:focus-visible {
   flex: 0 0 auto;
   place-items: center;
   border-radius: 11px;
-  background: var(--teal-bright);
+  background: var(--blue-bright);
   color: var(--navy);
   font-size: 9px;
   letter-spacing: 0;
@@ -210,7 +210,7 @@ input:focus-visible {
 }
 
 .brand-period {
-  color: var(--teal-bright);
+  color: var(--blue-bright);
 }
 
 .nav-caption {
@@ -246,7 +246,7 @@ input:focus-visible {
 }
 
 .nav-link.is-active {
-  box-shadow: inset 3px 0 var(--teal-bright);
+  box-shadow: inset 3px 0 var(--blue-bright);
 }
 
 .nav-link svg,
@@ -278,9 +278,9 @@ input:focus-visible {
   width: 23px;
   height: 23px;
   place-items: center;
-  border: 1px solid #79a3a2;
+  border: 1px solid #7595c3;
   border-radius: 50%;
-  color: #a9d8cb;
+  color: #b7ccef;
   font-size: 12px;
   font-weight: 700;
 }
@@ -299,7 +299,7 @@ input:focus-visible {
   display: flex;
   justify-content: space-between;
   margin-top: 16px;
-  color: #8de0c9;
+  color: #a9c8f4;
   font-size: 11px;
   font-weight: 600;
 }
@@ -319,7 +319,7 @@ input:focus-visible {
   height: 7px;
   flex: 0 0 auto;
   border-radius: 50%;
-  background: #45bd98;
+  background: #78a5e6;
 }
 
 .main-content {
@@ -414,8 +414,8 @@ input:focus-visible {
   height: 36px;
   place-items: center;
   border-radius: 50%;
-  background: #e2eeeb;
-  color: #28675f;
+  background: #e7eef9;
+  color: #315d98;
   font-size: 11px;
   font-weight: 700;
 }
@@ -507,8 +507,8 @@ h1 {
 }
 
 .button-outline:hover {
-  border-color: #a9c5c1;
-  background: #f9fcfb;
+  border-color: #b2c7e5;
+  background: #f8faff;
 }
 
 .overview-grid {
@@ -532,7 +532,7 @@ h1 {
   min-height: 178px;
   padding: 20px 22px 16px;
   border: 0;
-  background: linear-gradient(116deg, #123751 0%, #154f5a 100%);
+  background: linear-gradient(116deg, #123751 0%, #1d4f7e 100%);
   color: white;
 }
 
@@ -616,7 +616,7 @@ h1 {
 }
 
 .balance-change {
-  color: #77dfbd;
+  color: #9dc0f3;
   font-weight: 700;
 }
 
@@ -667,13 +667,13 @@ h1 {
 }
 
 .income-icon {
-  background: #e9f5f1;
-  color: #248b73;
+  background: #eaf2fd;
+  color: #2f67ae;
 }
 
 .expense-icon {
-  background: #f8eeee;
-  color: #bb7772;
+  background: #edf2f9;
+  color: #5278a9;
 }
 
 .summary-label {
@@ -712,7 +712,7 @@ h1 {
 }
 
 .positive {
-  color: var(--green);
+  color: var(--positive);
   font-weight: 700;
 }
 
@@ -749,8 +749,8 @@ h2 {
   height: 35px;
   place-items: center;
   border-radius: 8px;
-  background: #edf5f3;
-  color: #287c70;
+  background: #edf3fb;
+  color: #2f67ae;
 }
 
 .panel-icon svg {
@@ -795,8 +795,8 @@ h2 {
 
 .form-field > input:focus,
 .amount-input:focus-within {
-  border-color: #66a89e;
-  outline: 3px solid #65b9ae40;
+  border-color: #6d93ca;
+  outline: 3px solid #78a5e640;
 }
 
 .form-field > input:focus {
@@ -846,17 +846,17 @@ h2 {
   gap: 8px;
   margin: 17px 0 14px;
   padding: 10px;
-  border: 1px solid #e7eee9;
+  border: 1px solid #e4ebf5;
   border-radius: 5px;
-  background: #f6faf8;
-  color: #55746d;
+  background: #f4f8fd;
+  color: #4a6384;
 }
 
 .demo-notice svg {
   width: 15px;
   height: 15px;
   flex: 0 0 auto;
-  color: #438c7a;
+  color: #386eaf;
 }
 
 .demo-notice p {
@@ -868,16 +868,16 @@ h2 {
 .button-primary {
   width: 100%;
   min-height: 43px;
-  background: #167c70;
+  background: #1d5ca8;
   color: white;
 }
 
 .button-primary:hover {
-  background: #11695f;
+  background: #174b8a;
 }
 
 .button-primary:disabled {
-  background: #789b96;
+  background: #7891b3;
   cursor: not-allowed;
 }
 
@@ -890,7 +890,7 @@ h2 {
 .form-feedback {
   min-height: 16px;
   margin: 9px 0 0;
-  color: #246f62;
+  color: #285d9f;
   font-size: 10px;
   line-height: 1.5;
 }
@@ -906,14 +906,14 @@ h2 {
 }
 
 .text-link {
-  color: #28786e;
+  color: #285f9f;
   font-size: 10px;
   font-weight: 600;
   white-space: nowrap;
 }
 
 .text-link:hover {
-  color: #14574f;
+  color: #18487f;
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -993,8 +993,8 @@ td time {
 }
 
 .merchant-income {
-  background: #e8f4ef;
-  color: #23876f;
+  background: #eaf2fd;
+  color: #2f67ae;
 }
 
 .merchant-transfer {
@@ -1026,7 +1026,7 @@ td time {
 }
 
 .amount-positive {
-  color: #23836d;
+  color: #2f67ae;
 }
 
 .transactions-footer {
@@ -1180,7 +1180,7 @@ td time {
   }
 
   .nav-link.is-active {
-    box-shadow: inset 0 -2px var(--teal-bright);
+    box-shadow: inset 0 -2px var(--blue-bright);
   }
 
   .main-content {
@@ -1211,7 +1211,7 @@ td time {
     flex: 0 0 auto;
     place-items: center;
     border-radius: 8px;
-    background: var(--teal);
+    background: var(--blue);
     color: #fff;
     font-size: 7px;
     letter-spacing: 0;

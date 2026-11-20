@@ -1,1 +1,267 @@
+<!doctype html>
+<html lang="es-MX">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#102a43">
+    <meta name="description" content="Panel de Banca Digital Mexicana: consulta tus cuentas, movimientos y transferencias.">
+    <title>Banca Digital Mexicana</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" id="skip-link" href="#auth-title">Saltar al contenido principal</a>
+    <main class="auth-screen" id="auth-screen" aria-labelledby="auth-title">
+      <a class="auth-brand" href="#auth-title" aria-label="Banca Digital Mexicana">
+        <span class="auth-brand-mark" aria-hidden="true">BDM</span>
+        <span>Banca Digital Mexicana</span>
+      </a>
+      <section class="auth-card">
+        <div class="auth-heading">
+          <p class="eyebrow">BIENVENIDO A TU BANCA DIGITAL</p>
+          <h1 id="auth-title">Crea tu cuenta</h1>
+          <p>Registra tus datos para entrar al panel de demostración.</p>
+        </div>
+        <form id="create-account-form">
+          <div class="form-field">
+            <label for="account-holder">Nombre completo</label>
+            <input id="account-holder" name="name" type="text" autocomplete="name" placeholder="Ej. Alex Martínez" minlength="2" maxlength="60" pattern=".*\S.*" required>
+          </div>
+          <div class="form-field">
+            <label for="account-email">Correo electrónico</label>
+            <input id="account-email" name="email" type="email" autocomplete="email" placeholder="tu@correo.com" maxlength="254" required>
+          </div>
+          <div class="form-field">
+            <label for="account-password">Crea una contraseña</label>
+            <input id="account-password" name="password" type="password" autocomplete="new-password" minlength="8" aria-describedby="password-hint" placeholder="Mínimo 8 caracteres" required>
+            <span class="field-hint" id="password-hint">Usa una contraseña ficticia; no ingreses una contraseña real.</span>
+          </div>
+          <div class="form-field">
+            <label for="account-password-confirm">Confirma tu contraseña</label>
+            <input id="account-password-confirm" name="passwordConfirm" type="password" autocomplete="new-password" minlength="8" placeholder="Repite la contraseña" required>
+          </div>
+          <div class="demo-notice auth-notice">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/></svg>
+            <p>Prototipo de demostración: no se crea una cuenta bancaria real ni se envían o guardan estos datos.</p>
+          </div>
+          <button class="button button-primary auth-submit" type="submit">Crear cuenta de demostración</button>
+        </form>
+        <p class="auth-footer"><span class="secure-dot" aria-hidden="true"></span> Acceso de prueba protegido</p>
+      </section>
+    </main>
 
+    <div class="app-shell" id="bank-app" hidden>
+      <aside class="sidebar" aria-label="Navegación principal">
+        <a class="brand" href="#resumen" aria-label="Banca Digital Mexicana, ir al resumen">
+          <span class="brand-mark" aria-hidden="true">BDM</span>
+          <span class="brand-name">Banca Digital<br>Mexicana</span>
+        </a>
+
+        <p class="nav-caption">MENÚ PRINCIPAL</p>
+        <nav class="main-nav">
+          <a class="nav-link is-active" href="#resumen" aria-current="page">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></svg>
+            Resumen
+          </a>
+          <a class="nav-link" href="#movimientos">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h15m0 0-3-3m3 3-3 3M20 17H5m0 0 3-3m-3 3 3 3"/></svg>
+            Movimientos
+          </a>
+          <a class="nav-link" href="#transferir">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h13m0 0-3-3m3 3-3 3M17 17H4m0 0 3-3m-3 3 3 3"/></svg>
+            Transferir
+          </a>
+        </nav>
+
+        <div class="sidebar-help">
+          <span class="help-icon" aria-hidden="true">?</span>
+          <p>¿Necesitas ayuda?</p>
+          <span>Estamos para apoyarte</span>
+          <a href="mailto:ayuda@bancadigitalmexicana.mx">Contactar soporte <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="sidebar-footer">
+          <span class="secure-dot" aria-hidden="true"></span>
+          Conexión segura
+        </div>
+      </aside>
+
+      <main class="main-content" id="contenido">
+        <header class="topbar">
+          <div class="mobile-brand" aria-label="Banca Digital Mexicana">
+            <span class="mobile-brand-mark" aria-hidden="true">BDM</span>
+            <span>Banca Digital Mexicana</span>
+          </div>
+          <div class="welcome">
+            <p class="eyebrow">JUEVES, 20 DE NOVIEMBRE DE 2026</p>
+            <p class="welcome-title">Hola, <strong id="user-first-name">Alexandra</strong></p>
+          </div>
+          <div class="topbar-actions">
+            <button class="icon-button notification-button" type="button" aria-label="Notificaciones, ninguna nueva">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9m-8 12h4"/></svg>
+            </button>
+            <button class="profile-button" type="button" aria-label="Perfil de Alexandra Martínez">
+              <span class="avatar" aria-hidden="true">AM</span>
+              <span class="profile-details">
+                <span class="profile-name" id="user-full-name">Alexandra Martínez</span>
+                <span class="profile-email" id="user-email">alexandra@correo.com</span>
+              </span>
+              <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg>
+            </button>
+          </div>
+        </header>
+
+        <section class="page-heading" id="resumen" aria-labelledby="page-title">
+          <div>
+            <p class="eyebrow">TU DINERO, SIEMPRE CONTIGO</p>
+            <h1 id="page-title" tabindex="-1">Resumen de cuenta</h1>
+            <p class="heading-copy">Aquí tienes el estado de tus finanzas al día de hoy.</p>
+          </div>
+          <a class="button button-outline" href="#movimientos">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3"/></svg>
+            Ver movimientos
+          </a>
+        </section>
+
+        <section class="overview-grid" aria-label="Resumen financiero">
+          <article class="balance-card" aria-labelledby="balance-heading">
+            <div class="balance-card-top">
+              <span class="balance-label" id="balance-heading">Saldo disponible</span>
+              <span class="account-chip"><span aria-hidden="true"></span> Cuenta principal</span>
+            </div>
+            <div class="balance-line">
+              <p class="balance-amount" id="balance-amount" aria-live="polite">$48,250.75 <span>MXN</span></p>
+              <button class="balance-toggle" id="balance-toggle" type="button" aria-label="Ocultar saldo" aria-pressed="false">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.5"/></svg>
+              </button>
+            </div>
+            <div class="balance-card-bottom">
+              <span>Cuenta •••• 2846</span>
+              <span class="balance-change"><span aria-hidden="true">↗</span> +8.2% <span class="change-period">este mes</span></span>
+            </div>
+            <div class="balance-decoration" aria-hidden="true"></div>
+          </article>
+
+          <article class="summary-card">
+            <div class="summary-icon income-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 19V5m0 0L6 11m6-6 6 6"/></svg>
+            </div>
+            <p class="summary-label">Ingresos del mes</p>
+            <p class="summary-value">$12,800.00 <span>MXN</span></p>
+            <p class="summary-note"><span class="positive">+12.5%</span> respecto al mes pasado</p>
+          </article>
+
+          <article class="summary-card">
+            <div class="summary-icon expense-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 5v14m0 0 6-6m-6 6-6-6"/></svg>
+            </div>
+            <p class="summary-label">Gastos del mes</p>
+            <p class="summary-value">$6,430.20 <span>MXN</span></p>
+            <p class="summary-note">En <strong>24 movimientos</strong></p>
+          </article>
+        </section>
+
+        <div class="content-grid">
+          <section class="panel transfer-panel" id="transferir" aria-labelledby="transfer-title">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">ENVÍA DINERO</p>
+                <h2 id="transfer-title">Nueva transferencia</h2>
+              </div>
+              <span class="panel-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M7 7h13m0 0-3-3m3 3-3 3M17 17H4m0 0 3-3m-3 3 3 3"/></svg>
+              </span>
+            </div>
+            <p class="panel-description">Completa los datos para preparar tu transferencia.</p>
+
+            <form id="transfer-form">
+              <div class="form-field">
+                <label for="recipient">Nombre del beneficiario</label>
+                <input id="recipient" name="recipient" type="text" autocomplete="name" placeholder="Ej. Mariana López" maxlength="60" required>
+              </div>
+              <div class="form-field">
+                <label for="account-number">CLABE interbancaria</label>
+                <input id="account-number" name="accountNumber" type="text" inputmode="numeric" autocomplete="off" placeholder="18 dígitos" pattern="[0-9]{18}" minlength="18" maxlength="18" aria-describedby="account-hint" required>
+                <span class="field-hint" id="account-hint">Ingresa los 18 dígitos de la cuenta destino.</span>
+              </div>
+              <div class="form-field">
+                <label for="amount">Importe a transferir</label>
+                <div class="amount-input">
+                  <span aria-hidden="true">$</span>
+                  <input id="amount" name="amount" type="number" inputmode="decimal" min="0.01" step="0.01" placeholder="0.00" aria-describedby="amount-hint" required>
+                  <span class="currency-label">MXN</span>
+                </div>
+                <span class="field-hint" id="amount-hint">Disponible: <span id="available-amount">$48,250.75 MXN</span></span>
+              </div>
+              <div class="demo-notice">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/></svg>
+                <p>Modo demostración. No se realizará ningún movimiento real.</p>
+              </div>
+              <button class="button button-primary submit-button" type="submit">
+                Confirmar transferencia
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+              </button>
+              <p class="form-feedback" id="transfer-feedback" role="status" aria-live="polite"></p>
+            </form>
+          </section>
+
+          <section class="panel transactions-panel" id="movimientos" aria-labelledby="transactions-title">
+            <div class="transactions-heading">
+              <div>
+                <p class="eyebrow">TU ACTIVIDAD</p>
+                <h2 id="transactions-title">Movimientos recientes</h2>
+              </div>
+              <a class="text-link" href="#movimientos">Ver todos <span aria-hidden="true">→</span></a>
+            </div>
+            <p class="table-caption">Últimas operaciones de tu cuenta principal</p>
+            <div class="table-scroll">
+              <table>
+                <caption class="sr-only">Movimientos recientes de la cuenta principal</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Movimiento</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col" class="amount-column">Importe</th>
+                  </tr>
+                </thead>
+                <tbody id="transaction-list">
+                  <tr>
+                    <td><span class="merchant-icon merchant-shop" aria-hidden="true">C</span><span class="transaction-name">Café Central<span class="transaction-type">Alimentos y bebidas</span></span></td>
+                    <td><time datetime="2026-11-20">Hoy, 10:42</time></td>
+                    <td class="amount-column amount-negative">−$185.00</td>
+                  </tr>
+                  <tr>
+                    <td><span class="merchant-icon merchant-income" aria-hidden="true">↙</span><span class="transaction-name">Nómina<span class="transaction-type">Ingreso</span></span></td>
+                    <td><time datetime="2026-11-19">19 nov, 08:15</time></td>
+                    <td class="amount-column amount-positive">+$12,800.00</td>
+                  </tr>
+                  <tr>
+                    <td><span class="merchant-icon merchant-shop" aria-hidden="true">S</span><span class="transaction-name">Supermercado La Plaza<span class="transaction-type">Compras</span></span></td>
+                    <td><time datetime="2026-11-18">18 nov, 17:30</time></td>
+                    <td class="amount-column amount-negative">−$1,240.50</td>
+                  </tr>
+                  <tr>
+                    <td><span class="merchant-icon merchant-transfer" aria-hidden="true">↗</span><span class="transaction-name">Transferencia recibida<span class="transaction-type">De Daniel M.</span></span></td>
+                    <td><time datetime="2026-11-17">17 nov, 12:06</time></td>
+                    <td class="amount-column amount-positive">+$850.00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="transactions-footer">
+              <span><span class="secure-dot" aria-hidden="true"></span> Tus movimientos están protegidos</span>
+              <a class="text-link" href="#movimientos">Descargar estado de cuenta</a>
+            </div>
+          </section>
+        </div>
+
+        <footer class="page-footer">
+          <span>© 2026 Banca Digital Mexicana.</span>
+          <span>Esta es una interfaz de demostración con información ficticia.</span>
+        </footer>
+      </main>
+    </div>
+  </body>
+</html>

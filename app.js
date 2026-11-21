@@ -14,6 +14,8 @@ const transferForm = document.querySelector("#transfer-form");
 const feedback = document.querySelector("#transfer-feedback");
 const transactionList = document.querySelector("#transaction-list");
 const accountForm = document.querySelector("#create-account-form");
+const password = document.querySelector("#account-password");
+const passwordConfirm = document.querySelector("#account-password-confirm");
 const authScreen = document.querySelector("#auth-screen");
 const bankApp = document.querySelector("#bank-app");
 
@@ -27,6 +29,18 @@ function renderBalance() {
     : "•••••• <span>MXN</span>";
   availableAmount.textContent = `${formatCurrency(balanceCents)} MXN`;
 }
+
+function validatePasswordConfirmation() {
+  const passwordsMatch = password.value === passwordConfirm.value;
+  passwordConfirm.setCustomValidity(
+    passwordConfirm.value && !passwordsMatch
+      ? "Las contraseñas no coinciden."
+      : "",
+  );
+}
+
+password.addEventListener("input", validatePasswordConfirmation);
+passwordConfirm.addEventListener("input", validatePasswordConfirmation);
 
 function addTransferRow(recipient, accountNumber, amountCents) {
   const row = document.createElement("tr");
@@ -67,13 +81,7 @@ function addTransferRow(recipient, accountNumber, amountCents) {
 accountForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  const password = document.querySelector("#account-password");
-  const passwordConfirm = document.querySelector("#account-password-confirm");
-  passwordConfirm.setCustomValidity(
-    password.value === passwordConfirm.value
-      ? ""
-      : "Las contraseñas no coinciden.",
-  );
+  validatePasswordConfirmation();
 
   if (!accountForm.reportValidity()) {
     return;

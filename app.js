@@ -14,11 +14,28 @@ const transferForm = document.querySelector("#transfer-form");
 const feedback = document.querySelector("#transfer-feedback");
 const transactionList = document.querySelector("#transaction-list");
 const accountForm = document.querySelector("#create-account-form");
+const password = document.querySelector("#account-password");
+const passwordConfirm = document.querySelector("#account-password-confirm");
 const authScreen = document.querySelector("#auth-screen");
 const bankApp = document.querySelector("#bank-app");
 
 function formatCurrency(cents) {
   return currencyFormatter.format(cents / 100);
+}
+
+function isValidClabe(clabe) {
+  if (!/^\d{18}$/.test(clabe)) {
+    return false;
+  }
+
+  const weights = [3, 7, 1];
+  const sum = [...clabe.slice(0, 17)].reduce(
+    (total, digit, index) => total + Number(digit) * weights[index % weights.length],
+    0,
+  );
+  const checkDigit = (10 - (sum % 10)) % 10;
+
+  return checkDigit === Number(clabe[17]);
 }
 
 function renderBalance() {
@@ -27,6 +44,18 @@ function renderBalance() {
     : "•••••• <span>MXN</span>";
   availableAmount.textContent = `${formatCurrency(balanceCents)} MXN`;
 }
+
+function validatePasswordConfirmation() {
+  const passwordsMatch = password.value === passwordConfirm.value;
+  passwordConfirm.setCustomValidity(
+    passwordConfirm.value && !passwordsMatch
+      ? "Las contraseñas no coinciden."
+      : "",
+  );
+}
+
+password.addEventListener("input", validatePasswordConfirmation);
+passwordConfirm.addEventListener("input", validatePasswordConfirmation);
 
 function addTransferRow(recipient, accountNumber, amountCents) {
   const row = document.createElement("tr");
@@ -67,13 +96,7 @@ function addTransferRow(recipient, accountNumber, amountCents) {
 accountForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  const password = document.querySelector("#account-password");
-  const passwordConfirm = document.querySelector("#account-password-confirm");
-  passwordConfirm.setCustomValidity(
-    password.value === passwordConfirm.value
-      ? ""
-      : "Las contraseñas no coinciden.",
-  );
+  validatePasswordConfirmation();
 
   if (!accountForm.reportValidity()) {
     return;
@@ -132,6 +155,18 @@ transferForm.addEventListener("submit", (event) => {
   const accountNumber = String(formData.get("accountNumber")).trim();
   const amount = Number(formData.get("amount"));
   const amountCents = Math.round(amount * 100);
+
+  if (!recipient) {
+    feedback.textContent = "Ingresa el nombre del beneficiario.";
+    feedback.classList.add("is-error");
+    return;
+  }
+
+  if (!isValidClabe(accountNumber)) {
+    feedback.textContent = "La CLABE no es válida. Verifica sus 18 dígitos.";
+    feedback.classList.add("is-error");
+    return;
+  }
 
   if (!Number.isSafeInteger(amountCents) || amountCents <= 0) {
     feedback.textContent = "Ingresa un importe válido.";

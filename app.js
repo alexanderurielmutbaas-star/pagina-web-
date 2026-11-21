@@ -23,6 +23,21 @@ function formatCurrency(cents) {
   return currencyFormatter.format(cents / 100);
 }
 
+function isValidClabe(clabe) {
+  if (!/^\d{18}$/.test(clabe)) {
+    return false;
+  }
+
+  const weights = [3, 7, 1];
+  const sum = [...clabe.slice(0, 17)].reduce(
+    (total, digit, index) => total + Number(digit) * weights[index % weights.length],
+    0,
+  );
+  const checkDigit = (10 - (sum % 10)) % 10;
+
+  return checkDigit === Number(clabe[17]);
+}
+
 function renderBalance() {
   balanceAmount.innerHTML = balanceVisible
     ? `${formatCurrency(balanceCents)} <span>MXN</span>`
@@ -140,6 +155,18 @@ transferForm.addEventListener("submit", (event) => {
   const accountNumber = String(formData.get("accountNumber")).trim();
   const amount = Number(formData.get("amount"));
   const amountCents = Math.round(amount * 100);
+
+  if (!recipient) {
+    feedback.textContent = "Ingresa el nombre del beneficiario.";
+    feedback.classList.add("is-error");
+    return;
+  }
+
+  if (!isValidClabe(accountNumber)) {
+    feedback.textContent = "La CLABE no es válida. Verifica sus 18 dígitos.";
+    feedback.classList.add("is-error");
+    return;
+  }
 
   if (!Number.isSafeInteger(amountCents) || amountCents <= 0) {
     feedback.textContent = "Ingresa un importe válido.";

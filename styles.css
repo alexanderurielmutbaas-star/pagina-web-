@@ -1075,6 +1075,10 @@ td time {
   clip-path: inset(50%);
 }
 
+.form-meta-sync {
+  display: none;
+}
+
 @media (min-width: 1500px) {
   .main-content {
     margin-right: auto;
